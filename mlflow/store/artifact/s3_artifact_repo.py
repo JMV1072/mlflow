@@ -40,7 +40,9 @@ class S3ArtifactRepository(ArtifactRepository):
         # https://github.com/mlflow/mlflow/issues so we know your use-case!
         signature_version = os.environ.get('MLFLOW_EXPERIMENTAL_S3_SIGNATURE_VERSION', 's3v4')
         return boto3.client('s3',
-                            config=Config(signature_version=signature_version),
+                            aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID'),
+                            aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY'),
+                            aws_session_token = os.environ.get('AWS_SESSION_TOKEN'),
                             endpoint_url=s3_endpoint_url)
 
     def log_artifact(self, local_file, artifact_path=None):
