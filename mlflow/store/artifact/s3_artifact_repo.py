@@ -47,6 +47,7 @@ class S3ArtifactRepository(ArtifactRepository):
                             endpoint_url=s3_endpoint_url)
 
     def log_artifact(self, local_file, artifact_path=None):
+        print('Using modified logging')
         (bucket, dest_path) = data.parse_s3_uri(self.artifact_uri)
         if artifact_path:
             dest_path = posixpath.join(dest_path, artifact_path)
