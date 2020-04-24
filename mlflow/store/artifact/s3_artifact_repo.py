@@ -43,8 +43,7 @@ class S3ArtifactRepository(ArtifactRepository):
         return boto3.client('s3',
                             aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID'),
                             aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY'),
-                            aws_session_token = os.environ.get('AWS_SESSION_TOKEN'),
-                            endpoint_url=s3_endpoint_url)
+                            aws_session_token = os.environ.get('AWS_SESSION_TOKEN'))
 
     def log_artifact(self, local_file, artifact_path=None):
         print('Using modified logging')
@@ -58,11 +57,6 @@ class S3ArtifactRepository(ArtifactRepository):
             Filename=local_file,
             Bucket=bucket,
             Key=dest_path)
-#         s3_client.upload_file(
-#             Filename=local_file,
-#             Bucket=bucket,
-#             Key=dest_path,
-#             ExtraArgs=self.get_s3_file_upload_extra_args())
 
     def log_artifacts(self, local_dir, artifact_path=None):
         (bucket, dest_path) = data.parse_s3_uri(self.artifact_uri)
@@ -80,8 +74,7 @@ class S3ArtifactRepository(ArtifactRepository):
                 s3_client.upload_file(
                         Filename=os.path.join(root, f),
                         Bucket=bucket,
-                        Key=posixpath.join(upload_path, f),
-                        ExtraArgs=self.get_s3_file_upload_extra_args())
+                        Key=posixpath.join(upload_path, f))
 
     def list_artifacts(self, path=None):
         (bucket, artifact_path) = data.parse_s3_uri(self.artifact_uri)
