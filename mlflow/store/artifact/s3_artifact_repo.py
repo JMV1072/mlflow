@@ -57,8 +57,12 @@ class S3ArtifactRepository(ArtifactRepository):
         s3_client.upload_file(
             Filename=local_file,
             Bucket=bucket,
-            Key=dest_path,
-            ExtraArgs=self.get_s3_file_upload_extra_args())
+            Key=dest_path)
+#         s3_client.upload_file(
+#             Filename=local_file,
+#             Bucket=bucket,
+#             Key=dest_path,
+#             ExtraArgs=self.get_s3_file_upload_extra_args())
 
     def log_artifacts(self, local_dir, artifact_path=None):
         (bucket, dest_path) = data.parse_s3_uri(self.artifact_uri)
