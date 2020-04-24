@@ -38,7 +38,8 @@ class S3ArtifactRepository(ArtifactRepository):
         s3_endpoint_url = os.environ.get('MLFLOW_S3_ENDPOINT_URL')
         # NOTE: If you need to specify this env variable, please file an issue at
         # https://github.com/mlflow/mlflow/issues so we know your use-case!
-        signature_version = os.environ.get('MLFLOW_EXPERIMENTAL_S3_SIGNATURE_VERSION', 's3v4')
+        # signature_version = os.environ.get('MLFLOW_EXPERIMENTAL_S3_SIGNATURE_VERSION', 's3v4')
+        print('Using modified boto3 client')
         return boto3.client('s3',
                             aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID'),
                             aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY'),
